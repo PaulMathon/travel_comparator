@@ -12,5 +12,5 @@ PARTNER_ID_KIWI=**partner-id-key**
 ```
 
 To get your own keys, you will have to register properly in the each client API from the following links:
-  - *SNCF$: (https://www.digital.sncf.com/startup/api/token-developpeur)
+  - *SNCF*: (https://www.digital.sncf.com/startup/api/token-developpeur)
   - *KIWI*: (https://tequila.kiwi.com/portal/login/register)
