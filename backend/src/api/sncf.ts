@@ -14,7 +14,7 @@ export default class ApiSNCF implements TravelApi {
     geoData: GeoData;
 
     constructor() {
-        this.geoData = <GeoData>DataUtils.readJSON('../../data/json/commune.json');
+        this.geoData = <GeoData>DataUtils.readJSON('data/json/commune.json');
     }
 
     async getAvailables(where: WhereFromTo, when: Date, maxResults: number = 100): Promise<Train[]> {

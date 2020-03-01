@@ -12,8 +12,6 @@ export interface GeoData {
 
 export default interface TravelApi {
 
-    geoData: GeoData; 
-
     getAvailables(where: WhereFromTo, when: Date, maxResults: number): Promise<Train[]>;
 
     requestUrl(baseUrl: string, where: WhereFromTo, when: Date): string;

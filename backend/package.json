@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "test": "tsc && node bin/test"
+    "test": "tsc && node bin/test/test"
   },
   "keywords": [],
   "author": "",
