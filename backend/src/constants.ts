@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -7,6 +7,9 @@ export interface ProcessEnv {
 }
 
 let env = process.env["NODE_ENV"];
+
+export const port = parseInt(process.env.PORT || '8080'); 
+export const LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 
 export const URL_SNCF = process.env.URL_SNCF || 'https://api.sncf.com/v1';
 export const TOKEN_SNCF = process.env.TOKEN_SNCF || '';

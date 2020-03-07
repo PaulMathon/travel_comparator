@@ -1,4 +1,4 @@
-export default interface City {
+export interface City {
 
     name: string,
     postalCode: number,

@@ -1,8 +1,8 @@
-import fs from 'fs';
+import * as fs from 'fs';
 
-export default class DataUtils {
+export class JsonUtils {
 
-    static readJSON(path: string): Object {
+    static readJson(path: string): Object {
         const data = fs.readFileSync(path, 'utf8');
         const words = JSON.parse(data);
         return words;

@@ -1,5 +1,5 @@
-import City from '../entities/specific/City';
-import Train from '../entities/specific/Train';
+import {City} from '../entities/specific/City';
+import {Journey} from '../entities/specific/Journey';
 
 export interface WhereFromTo {
     from: City,
@@ -12,7 +12,7 @@ export interface GeoData {
 
 export default interface TravelApi {
 
-    getAvailables(where: WhereFromTo, when: Date, maxResults: number): Promise<Train[]>;
+    getAvailables(where: WhereFromTo, when: Date, maxResults: number): Promise<Journey[]>;
 
     requestUrl(baseUrl: string, where: WhereFromTo, when: Date): string;
 

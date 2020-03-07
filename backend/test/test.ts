@@ -1,5 +1,5 @@
-import ApiSNCF from '../src/api/sncf';
-import ApiKiwi from '../src/api/kiwi';
+import ApiSNCF from '../src/api/SncfApi';
+import ApiKiwi from '../src/api/KiwiApi';
 
 const apiSncf = new ApiSNCF();
 const apiKiwi = new ApiKiwi();

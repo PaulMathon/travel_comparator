@@ -1,10 +1,11 @@
 import fetch from 'node-fetch';
 import {URL_SNCF, TOKEN_SNCF} from '../constants';
-import City from '../entities/specific/City';
-import DataUtils from '../utils/DataUtils';
-import Train from '../entities/specific/Train';
-import TravelApi, {WhereFromTo, GeoData} from './api';
+import {City} from '../entities/specific/City';
+import {JsonUtils} from '../utils/JsonUtils';
+import {Journey} from '../entities/specific/Journey';
+import TravelApi, {WhereFromTo, GeoData} from './TravelApi';
 import Token from '../entities/api/Token';
+import {LocationService} from '../services/LocationService';
 
 /**
  * Documentation: http://doc.navitia.io/
@@ -14,10 +15,10 @@ export default class ApiSNCF implements TravelApi {
     geoData: GeoData;
 
     constructor() {
-        this.geoData = <GeoData>DataUtils.readJSON('data/json/commune.json');
+        this.geoData = <GeoData>JsonUtils.readJson('data/json/commune.json');
     }
 
-    async getAvailables(where: WhereFromTo, when: Date, maxResults: number = 100): Promise<Train[]> {
+    async getAvailables(where: WhereFromTo, when: Date, maxResults: number = 100): Promise<Journey[]> {
         const opt = {
             headers: {'Authorization': TOKEN_SNCF},
             method: 'GET'

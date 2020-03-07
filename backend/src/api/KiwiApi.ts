@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
-import DataUtils from '../utils/DataUtils';
-import TravelApi, {WhereFromTo, GeoData} from './api';
-import Train from '../entities/specific/Train';
+import {JsonUtils} from '../utils/JsonUtils';
+import TravelApi, {WhereFromTo, GeoData} from './TravelApi';
+import {Journey} from '../entities/specific/Journey';
 import {
     GEO_DATA_API_VERSION,
     PARTNER_ID_KIWI,
@@ -16,10 +16,10 @@ export default class KiwiApi implements TravelApi {
     geoData: AirportsData;
 
     constructor() {
-        this.geoData = <AirportsData>DataUtils.readJSON('data/json/IATA.json');
+        this.geoData = <AirportsData>JsonUtils.readJson('data/json/IATA.json');
     }
 
-    async getAvailables(where: WhereFromTo, when: Date, maxResults: number=100): Promise<Train[]> {
+    async getAvailables(where: WhereFromTo, when: Date, maxResults: number=100): Promise<Journey[]> {
         const opt = { method: 'GET' };
         const urlRequest = this.requestUrl(URL_KIWI, where, when);
         const availables = await fetch(urlRequest, opt);

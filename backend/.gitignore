@@ -1,6 +1,7 @@
 # Compiled source #
 ###################
 bin/
+dist/
 *.com
 *.class
 *.dll

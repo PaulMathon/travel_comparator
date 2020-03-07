@@ -1,4 +1,4 @@
-import City from './City';
+import {City} from './City';
 
 interface Where {
     from: string,
@@ -10,7 +10,7 @@ interface When {
     to: string
 }
 
-export default class Train {
+export class Journey {
 
     constructor(private where: Where,
                 private when: When) { }
