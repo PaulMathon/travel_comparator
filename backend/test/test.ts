@@ -1,8 +1,8 @@
-import ApiSNCF from '../src/api/SncfApi';
-import ApiKiwi from '../src/api/KiwiApi';
+import { SncfApi } from '../src/api/SncfApi';
+import { KiwiApi } from '../src/api/KiwiApi';
 
-const apiSncf = new ApiSNCF();
-const apiKiwi = new ApiKiwi();
+const apiSncf = new SncfApi();
+const apiKiwi = new KiwiApi();
 
 /* const from = {
     name: 'Commune de Paris',
@@ -41,7 +41,7 @@ const to = {
     postalCode: 69123
 };
 
-apiKiwi.getAvailables({ from, to }, new Date('April 17, 2020'))
+apiKiwi.getAvailables(from, to, new Date('April 17, 2020'))
     .then((fly: any) => {
         console.log('FLIES', fly);
     });

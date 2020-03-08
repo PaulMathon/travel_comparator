@@ -1,13 +1,13 @@
 import * as express from 'express';
-import {IRoute} from './IRoute';
-import {ITravelController} from '../controllers/ITravelController';
+import { IRoute } from './IRoute';
+import { ITravelController } from '../controllers/ITravelController';
 import { ApiType } from '../api/TravelApi';
 
-export class TrainRoute implements IRoute {
+export class PlaneRoute implements IRoute {
 
   private router: express.Router;
 
-  constructor(private trainController: ITravelController) {
+  constructor(private planeController: ITravelController) {
     this.router = express.Router();
     this.initRoutes();
   } 
@@ -18,15 +18,15 @@ export class TrainRoute implements IRoute {
   }
 
   static getType(): ApiType {
-    return ApiType.train;
+    return ApiType.plane;
   }
 
-  private initRoutes() {
+  private initRoutes(): void {
     this.router
-      .get('/train', (req: express.Request, res: express.Response) => {
+      .get('/plane', (req: express.Request, res: express.Response) => {
         try {
           // TODO: check params
-          const journeys = this.trainController.getJourneys(req.query.cityFrom, req.query.cityTo, req.query.dateFrom)
+          const journeys = this.planeController.getJourneys(req.query.cityFrom, req.query.cityTo, req.query.dateFrom)
           return res.sendStatus(200).end(journeys);
         } catch (err) {
           return res.sendStatus(err.status || 500).end({
