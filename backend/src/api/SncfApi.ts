@@ -12,10 +12,7 @@ import {LocationService} from '../services/LocationService';
  */
 export class SncfApi implements TravelApi {
 
-  geoData: GeoData;
-
   constructor() {
-      this.geoData = <GeoData>JsonUtils.readJson('data/json/commune.json');
   }
 
   async getAvailables(cityFrom: City, cityTo: City, when: Date, maxResults: number = 100): Promise<Journey[]> {
@@ -34,7 +31,7 @@ export class SncfApi implements TravelApi {
   } */
 
   public requestUrl(baseUrl: string, cityFrom: City, cityTo: City, when: Date): string {
-      return `${baseUrl}/coverage/sncf/journeys?from=admin:fr:${cityFrom.postalCode}&to=admin:fr:${cityTo.postalCode}&datetime=${this.parseDate(when)}`
+    return `${baseUrl}/coverage/sncf/journeys?from=admin:fr:${cityFrom.zipCode}&to=admin:fr:${cityTo.zipCode}&datetime=${this.parseDate(when)}`
   }
 
   public getPlace() {
@@ -44,8 +41,10 @@ export class SncfApi implements TravelApi {
   /**
    * Format example: 20191214T104643
    */
-  public parseDate(date: Date) {
-      return `${date.getFullYear()}${('0' + (date.getMonth()+1)).slice(-2)}${('0' + date.getDate()).slice(-2)}T${date.getHours()}${date.getMinutes()}${date.getSeconds()}`;
+  public parseDate(dateAndTime: Date) {
+    const date = `${dateAndTime.getFullYear()}${('0' + (dateAndTime.getMonth()+1)).slice(-2)}${('0' + dateAndTime.getDate()).slice(-2)}`;
+    const time = `${dateAndTime.getHours()}${dateAndTime.getMinutes()}${dateAndTime.getSeconds()}`;
+    return `${date}T${time}`;
   }
 
   static getType(): ApiType {

@@ -10,7 +10,7 @@ export class App {
   constructor(private routes: IRoutesFactory) {
     this.app = express();
     this.config();
-    this.routes.routes(this.app);
+    this.routes.useRoutes(this.app);
   }
 
   public start() {

@@ -6,11 +6,11 @@ const apiKiwi = new KiwiApi();
 
 /* const from = {
     name: 'Commune de Paris',
-    postalCode: 75056
+    zipCode: 75056
 };
 const to = {
     name: 'Commune de Lyon',
-    postalCode: 69123
+    zipCode: 69123
 };
 
 apiSncf.getAvailables({ from, to }, new Date())
@@ -34,11 +34,11 @@ function multipleRequests(numberOfRequests: number) {
 
 const from = {
     name: 'New York, NY - La Guardia',
-    postalCode: 75056
+    zipCode: 75056
 };
 const to = {
     name: 'Paris, France - Charles Degaulle',
-    postalCode: 69123
+    zipCode: 69123
 };
 
 apiKiwi.getAvailables(from, to, new Date('April 17, 2020'))

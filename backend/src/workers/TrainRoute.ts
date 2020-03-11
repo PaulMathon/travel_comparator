@@ -23,17 +23,20 @@ export class TrainRoute implements IRoute {
 
   private initRoutes() {
     this.router
-      .get('/train', (req: express.Request, res: express.Response) => {
-        try {
+      .get('/train', async (req: express.Request, res: express.Response) => {
           // TODO: check params
-          const journeys = this.trainController.getJourneys(req.query.cityFrom, req.query.cityTo, req.query.dateFrom)
-          return res.sendStatus(200).end(journeys);
-        } catch (err) {
-          return res.sendStatus(err.status || 500).end({
-            error: err.error || 'UnknownError',
-            message: err.message || 'No message'
+        const journeys = await this.trainController.getJourneys(
+          req.query.cityFrom,
+          req.query.cityTo,
+          new Date(parseInt(req.query.dateFrom))
+        );
+        if (journeys.isError()) {
+          return res.status(journeys.value.status || 500).end({
+            error: journeys.value.type || 'UnknownError',
+            message: journeys.value.reason || 'No message'
           });
         }
+        return res.status(200).json(journeys.value);
       });
   }
 }

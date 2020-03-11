@@ -29,7 +29,6 @@ export class ApiFactory implements IApiFactory {
     for (let api of this.apis) {
       journeys = journeys.concat(await api.getAvailables(cityFrom, cityTo, dateFrom));
     }
-    console.log('HELLLLO', journeys);
     return journeys;
   }
 

@@ -7,12 +7,12 @@ import { IApiFactory } from '../api/ApiFactory';
 import { ApiType } from '../api/TravelApi';
 import { PlaneRoute } from './PlaneRoute';
 import { PlaneController } from '../controllers/PlaneController';
-import { GoyavError } from '../utils/Error';
+import { GoyavError } from '../utils/GoyavError';
 
 
 export interface IRoutesFactory {
 
-    routes(app: express.Application): void;
+  useRoutes(app: express.Application): void;
 
 }
 
@@ -34,20 +34,24 @@ export class RoutesFactory implements IRoutesFactory {
       private locationService: ILocationService,
       private trainApiFactory: IApiFactory,
       private planeApiFactory: IApiFactory) {
-        this.createdRoutes = this.availableRoutes.map(({Route, Controller}) => {
-          const routeType = Route.getType();
-          if (routeType === ApiType.train) {
-            console.log('AYO');
-            return new Route(new Controller(this.locationService, this.trainApiFactory))
-          } else if (routeType === ApiType.plane) {
-            return new Route(new Controller(this.locationService, this.planeApiFactory))
-          }
-          throw new GoyavError('InternalError', `Couldn't properly init ${Route.toString()}, expected to have type ${ApiType.plane} or ${ApiType.train} but got ${routeType}`)
-        });
+
+      this.createdRoutes = this.initRoutes();
     }
 
-    routes(app: express.Application): void {
+    useRoutes(app: express.Application): void {
         this.createdRoutes.forEach((route) => route.useRoutes(app))
+    }
+
+    private initRoutes(): IRoute[] {
+      return this.availableRoutes.map(({Route, Controller}) => {
+        const routeType = Route.getType();
+        if (routeType === ApiType.train) {
+          return new Route(new Controller(this.locationService, this.trainApiFactory))
+        } else if (routeType === ApiType.plane) {
+          return new Route(new Controller(this.locationService, this.planeApiFactory))
+        }
+        throw new GoyavError('InternalError', `Couldn't properly init ${Route.toString()}, expected to have type ${ApiType.plane} or ${ApiType.train} but got ${routeType}`)
+      });
     }
 
 }

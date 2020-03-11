@@ -14,10 +14,7 @@ interface AirportsData {
 }
 export class KiwiApi implements TravelApi {
 
-  geoData: AirportsData;
-
   constructor() {
-    this.geoData = <AirportsData>JsonUtils.readJson('data/json/IATA.json');
   }
 
   async getAvailables(cityFrom: City, cityTo: City, when: Date, maxResults: number=100): Promise<Journey[]> {
@@ -28,15 +25,11 @@ export class KiwiApi implements TravelApi {
   }
   
   public requestUrl(baseUrl: string, cityFrom: City, cityTo: City, when: Date): string {
-    return `${baseUrl}/flights?flyFrom=${this.getIATA(cityFrom.name)}&to=${this.getIATA(cityTo.name)}&dateFrom=${this.parseDate(when)}&partner=${PARTNER_ID_KIWI}&v=${GEO_DATA_API_VERSION}`;
+    return `${baseUrl}/flights?flyFrom=${cityFrom.iaat}&to=${cityTo.iaat}&dateFrom=${this.parseDate(when)}&partner=${PARTNER_ID_KIWI}&v=${GEO_DATA_API_VERSION}`;
   }
 
   public parseDate(date: Date): string {
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
-  }
-
-  private getIATA(place: string): string {
-    return this.geoData[place];
   }
 
   static getType(): ApiType {
