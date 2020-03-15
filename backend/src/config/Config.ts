@@ -1,4 +1,4 @@
-import { LOG_LEVEL } from '../constants';
+import { LOG_LEVEL, NODE_ENV } from '../constants';
 import { LogLevel } from '../utils/Logger';
 import { GoyavError } from '../utils/GoyavError';
 
@@ -8,6 +8,7 @@ export class Config {
 
   constructor() {
     this.logLevel = this.checkLogLevel(LOG_LEVEL);
+
   }
 
   checkLogLevel(levelAsStr: string): LogLevel {

@@ -17,9 +17,13 @@ export class App {
   }
 
   public start() {
-    this.app.listen(port, () => {
-      console.log(`Backend server started at port ${port}`);
+    return this.app.listen(port, () => {
+      this.logger.info(`Backend server started at port ${port}`);
     })
+  }
+
+  public stop() {
+    return process.exit(0);
   }
 
   private config(): void {

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express'; 
+import { ErrorRequestHandler, Request, Response, NextFunction } from 'express'; 
 import * as express from 'express';
 import { GoyavError } from './GoyavError';
 
@@ -14,7 +14,7 @@ export interface ILogger {
   info(message: string): void;
   warn(message: string): void;
   debug(message: string): void
-  error(message: string): void
+  error(message: any): void
 
 }
 
@@ -33,8 +33,8 @@ export class Logger implements ILogger {
   }
 
   static createMiddleware(logger: ILogger): Function {
-    return (req: Request, res: Response, next: NextFunction) => {
-      // if (err) this.logger.error(err.stack);
+    return (err: Error, req: Request, res: Response, next: NextFunction) => {
+      if (err) logger.error(err.stack || 'No stack available');
       logger.info(Logger.parseMsg(req, res));
       next();
     }
@@ -58,7 +58,7 @@ export class Logger implements ILogger {
     }
   }
 
-  public error(message: string) {
+  public error(message: any) {
     if (this.logLevel >= this.logLevels.ERROR) {
       console.error(message);
     }

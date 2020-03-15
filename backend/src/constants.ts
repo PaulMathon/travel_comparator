@@ -9,6 +9,7 @@ export interface ProcessEnv {
 let env = process.env["NODE_ENV"];
 
 export const port = parseInt(process.env.PORT || '8080'); 
+export const NODE_ENV = process.env.NODE_ENV || 'prod';
 export const LOG_LEVEL = process.env.LOG_LEVEL || 'INFO';
 
 export const httpStatus: { [key: string]: number } = {
