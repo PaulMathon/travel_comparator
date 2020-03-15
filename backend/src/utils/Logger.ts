@@ -1,4 +1,4 @@
-import { ErrorRequestHandler, Request, Response, NextFunction } from 'express'; 
+import { Request, Response, NextFunction } from 'express'; 
 import { GoyavError } from './GoyavError';
 
 export enum LogLevel {
@@ -85,7 +85,8 @@ export class Logger implements ILogger {
 
   private static parseMsg(req: Request, res: Response) {
     const date = new Date();
-    return `${date.toISOString()} [${req.originalUrl}] - ${req.method} ${res.statusCode}`;
+    return `[${date.toISOString()}] - ${req.method} ${req.originalUrl} ${res.statusCode}`;
   }
+
 }
 
