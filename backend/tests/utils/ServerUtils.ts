@@ -7,7 +7,7 @@ import { CityProvider } from '../../src/providers/CityProvider';
 import { ApiFactory } from '../../src/api/ApiFactory';
 import { ApiType } from '../../src/api/TravelApi';
 import { Logger } from '../../src/utils/Logger';
-import { Config } from '../../src/config/Config';
+import { Config } from '../../src/config';
 
 export class ServerUtils {
 
@@ -25,7 +25,7 @@ export class ServerUtils {
 
   private static buildTestApp(): App {
     // Config
-    const config = new Config();
+    const config = new Config().getServerConfig();
 
     // Providers and services
     const airportProvider = new AirportProvider();
@@ -43,7 +43,8 @@ export class ServerUtils {
     const routes = new RoutesFactory(
         locationService,
         trainApiFactory,
-        planeApiFactory
+        planeApiFactory,
+        config
       );
 
     // Technicals

@@ -1,5 +1,4 @@
 import { ErrorRequestHandler, Request, Response, NextFunction } from 'express'; 
-import * as express from 'express';
 import { GoyavError } from './GoyavError';
 
 export enum LogLevel {
@@ -33,8 +32,7 @@ export class Logger implements ILogger {
   }
 
   static createMiddleware(logger: ILogger): Function {
-    return (err: Error, req: Request, res: Response, next: NextFunction) => {
-      if (err) logger.error(err.stack || 'No stack available');
+    return (req: Request, res: Response, next: NextFunction) => {
       logger.info(Logger.parseMsg(req, res));
       next();
     }

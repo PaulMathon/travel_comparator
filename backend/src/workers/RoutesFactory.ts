@@ -8,6 +8,7 @@ import { ApiType } from '../api/TravelApi';
 import { PlaneRoute } from './PlaneRoute';
 import { PlaneController } from '../controllers/PlaneController';
 import { GoyavError } from '../utils/GoyavError';
+import { IQueryConfig, IServerConfig } from '../config';
 
 
 export interface IRoutesFactory {
@@ -37,7 +38,9 @@ export class RoutesFactory implements IRoutesFactory {
     constructor(
       private locationService: ILocationService,
       private trainApiFactory: IApiFactory,
-      private planeApiFactory: IApiFactory) {
+      private planeApiFactory: IApiFactory,
+      private serverConfig: IServerConfig
+    ) {
 
       this.routes = this.createRoutes();
       this.router = express.Router();
@@ -52,11 +55,19 @@ export class RoutesFactory implements IRoutesFactory {
       return this.availableRoutes.map(({Route, Controller}) => {
         const routeType = Route.getType();
         if (routeType === ApiType.train) {
-          return new Route(new Controller(this.locationService, this.trainApiFactory))
+          return new Route(
+            new Controller(this.locationService, this.trainApiFactory),
+            this.serverConfig.query
+          );
         } else if (routeType === ApiType.plane) {
-          return new Route(new Controller(this.locationService, this.planeApiFactory))
+          return new Route(
+            new Controller(this.locationService, this.planeApiFactory),
+            this.serverConfig.query
+          );
         }
-        throw new GoyavError('InternalError', `Couldn't properly init ${Route.toString()}, expected to have type ${ApiType.plane} or ${ApiType.train} but got ${routeType}`)
+        throw new GoyavError(
+          'InternalError',
+          `Couldn't properly init ${Route.toString()}, expected to have type ${ApiType.plane} or ${ApiType.train} but got ${routeType}`)
       });
     }
 

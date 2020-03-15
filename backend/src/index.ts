@@ -6,10 +6,10 @@ import { CityProvider } from './providers/CityProvider';
 import { ApiFactory } from './api/ApiFactory';
 import { ApiType } from './api/TravelApi';
 import { Logger } from './utils/Logger';
-import { Config } from './config/Config';
+import { Config } from './config';
 
 // Config
-const config = new Config();
+const config = new Config().getServerConfig();
 
 // Providers and services
 const airportProvider = new AirportProvider();
@@ -27,7 +27,8 @@ const planeApiFactory = new ApiFactory(ApiType.plane);
 const routes = new RoutesFactory(
     locationService,
     trainApiFactory,
-    planeApiFactory
+    planeApiFactory,
+    config
   );
 
 // Technicals
