@@ -23,7 +23,7 @@ export class TrainRoute implements IRoute {
             params.cityTo,
             new Date(parseInt(req.query.dateFrom))
           );
-          res.status(200).json(journeys.value);
+          res.status(200).json(journeys);
         } catch (err) {
           res.status(err.status || 500).json({
             error: err.type || err.error || 'UnknownError',

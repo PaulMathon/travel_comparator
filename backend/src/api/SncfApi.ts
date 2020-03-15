@@ -22,6 +22,7 @@ export class SncfApi implements TravelApi {
     };
     const urlRequest = this.requestUrl(URL_SNCF, cityFrom, cityTo, when);
     const availables = await fetch(urlRequest, opt);
+    throw new Error('halo');
     return availables.json();
   }
 
