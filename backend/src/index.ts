@@ -5,6 +5,11 @@ import { AirportProvider } from './providers/AirportProvider';
 import { CityProvider } from './providers/CityProvider';
 import { ApiFactory } from './api/ApiFactory';
 import { ApiType } from './api/TravelApi';
+import { Logger } from './utils/Logger';
+import { Config } from './config/Config';
+
+// Config
+const config = new Config();
 
 // Providers and services
 const airportProvider = new AirportProvider();
@@ -25,6 +30,9 @@ const routes = new RoutesFactory(
     planeApiFactory
   );
 
+// Technicals
+const logger = new Logger(config.logLevel);
+
 // App
-const app = new App(routes);
+const app = new App(routes, logger);
 app.start();

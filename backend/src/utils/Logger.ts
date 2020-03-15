@@ -1,51 +1,93 @@
-class LogLevel {
+import { Request, Response, NextFunction } from 'express'; 
+import * as express from 'express';
+import { GoyavError } from './GoyavError';
 
-    private logLevel: string;
-    private logLevels: {[key: string]: number} = {
-        'info': 0,
-        'warn': 1,
-        'debug': 2,
-        'error': 3
-    }
-
-    constructor(logLevel: string) {
-        this.logLevel = logLevel;
-    }
-
-    toInt() {
-        return this.logLevels[this.logLevel];
-    }
+export enum LogLevel {
+  INFO,
+  WARN,
+  DEBUG,
+  ERROR
 }
 
-export default class Logger {
+export interface ILogger {
+
+  info(message: string): void;
+  warn(message: string): void;
+  debug(message: string): void
+  error(message: string): void
+
+}
+
+export class Logger implements ILogger {
     
-    private logLevel: LogLevel;
+  private logLevel: number;
+  private logLevels = {
+    INFO: 0,
+    WARN: 1,
+    DEBUG: 2,
+    ERROR: 3
+  }
 
-    constructor(logLevel: string) {
-        this.logLevel = new LogLevel(logLevel);
-    }
+  constructor(logLevel: LogLevel) {
+    this.logLevel = this.parseIntLogLevel(logLevel);
+  }
 
-    public info(message: string) {
-        if (this.logLevel.toInt() >= 0) {
-            console.info(message);
-        }
+  static createMiddleware(logger: ILogger): Function {
+    return (req: Request, res: Response, next: NextFunction) => {
+      // if (err) this.logger.error(err.stack);
+      logger.info(Logger.parseMsg(req, res));
+      next();
     }
+  }
 
-    public warn(message: string) {
-        if (this.logLevel.toInt() >= 1) {
-            console.warn(message);
-        }
+  public info(message: string) {
+    if (this.logLevel >= this.logLevels.INFO) {
+      console.info(message);
     }
+  }
 
-    public debug(message: string) {
-        if (this.logLevel.toInt() >= 2) {
-            console.debug(message);
-        }
+  public warn(message: string) {
+    if (this.logLevel >= this.logLevels.WARN) {
+      console.warn(message);
     }
+  }
 
-    public error(message: string) {
-        if (this.logLevel.toInt() >= 3) {
-            console.error(message);
-        }
+  public debug(message: string) {
+    if (this.logLevel >= this.logLevels.DEBUG) {
+      console.debug(message);
     }
+  }
+
+  public error(message: string) {
+    if (this.logLevel >= this.logLevels.ERROR) {
+      console.error(message);
+    }
+  }
+
+  private parseIntLogLevel(level: LogLevel): number {
+    let logLevelAsNumber;
+    switch (level) {
+      case LogLevel.INFO:
+        logLevelAsNumber = 0;
+        break;
+      case LogLevel.WARN:
+        logLevelAsNumber = 1;
+        break;
+      case LogLevel.DEBUG:
+        logLevelAsNumber = 2;
+        break;
+      case LogLevel.ERROR:
+        logLevelAsNumber = 3;
+        break;
+      default:
+        throw new GoyavError('InternalError', `Unhandled LOG LEVEL value: ${level}`);
+    }
+    return logLevelAsNumber;
+  }
+
+  private static parseMsg(req: Request, res: Response) {
+    const date = new Date();
+    return `${date.toISOString()} [${req.originalUrl}] - ${req.method} ${res.statusCode}`;
+  }
 }
+

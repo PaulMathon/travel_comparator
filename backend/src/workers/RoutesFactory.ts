@@ -12,6 +12,9 @@ import { GoyavError } from '../utils/GoyavError';
 
 export interface IRoutesFactory {
 
+  routes: IRoute[];
+  router: express.IRouter;
+
   useRoutes(app: express.Application): void;
 
 }
@@ -28,21 +31,24 @@ export class RoutesFactory implements IRoutesFactory {
         Controller: PlaneController
       }
     ];
-    private createdRoutes: IRoute[];
+    routes: IRoute[];
+    router: express.IRouter;
 
     constructor(
       private locationService: ILocationService,
       private trainApiFactory: IApiFactory,
       private planeApiFactory: IApiFactory) {
 
-      this.createdRoutes = this.initRoutes();
+      this.routes = this.createRoutes();
+      this.router = express.Router();
+      this.useRoutes();
     }
 
-    useRoutes(app: express.Application): void {
-        this.createdRoutes.forEach((route) => route.useRoutes(app))
+    useRoutes(): void {
+        this.routes.forEach((route) => route.useRoutes(this.router))
     }
 
-    private initRoutes(): IRoute[] {
+    private createRoutes(): IRoute[] {
       return this.availableRoutes.map(({Route, Controller}) => {
         const routeType = Route.getType();
         if (routeType === ApiType.train) {
