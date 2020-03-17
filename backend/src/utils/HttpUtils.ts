@@ -1,5 +1,6 @@
 import { GoyavError } from './GoyavError';
-import { IQueryConfig } from '../config'
+import { IQueryConfig } from '../config';
+import fetch from 'node-fetch';
 
 interface IQueryParams {
   cityFrom: string,
@@ -27,5 +28,10 @@ export class HttpUtils {
       );
     }
     return <IQueryParams>params;
+  }
+
+  static async fetch(url: string, opt?: object): Promise<any> {
+    const fetchResult = await fetch(url, opt || {});
+    return fetchResult.json();
   }
 }

@@ -1,15 +1,10 @@
 import * as express from 'express';
-import { TrainRoute } from './TrainRoute';
 import { IRoute } from './IRoute';
-import { TrainController } from '../controllers/TrainController';
+import { JourneyController } from '../controllers/JourneyController';
 import { ILocationService } from '../services/LocationService';
 import { IApiFactory } from '../api/ApiFactory';
-import { ApiType } from '../api/TravelApi';
-import { PlaneRoute } from './PlaneRoute';
-import { PlaneController } from '../controllers/PlaneController';
-import { GoyavError } from '../utils/GoyavError';
-import { IQueryConfig, IServerConfig } from '../config';
-
+import { JourneyRoute } from './JourneyRoute';
+import { IServerConfig } from '../config';
 
 export interface IRoutesFactory {
 
@@ -24,12 +19,8 @@ export class RoutesFactory implements IRoutesFactory {
 
     private availableRoutes = [
       {
-        Route: TrainRoute,
-        Controller: TrainController
-      },
-      {
-        Route: PlaneRoute,
-        Controller: PlaneController
+        Route: JourneyRoute,
+        Controller: JourneyController
       }
     ];
     routes: IRoute[];
@@ -37,8 +28,7 @@ export class RoutesFactory implements IRoutesFactory {
 
     constructor(
       private locationService: ILocationService,
-      private trainApiFactory: IApiFactory,
-      private planeApiFactory: IApiFactory,
+      private apiFactory: IApiFactory,
       private serverConfig: IServerConfig
     ) {
 
@@ -53,21 +43,10 @@ export class RoutesFactory implements IRoutesFactory {
 
     private createRoutes(): IRoute[] {
       return this.availableRoutes.map(({Route, Controller}) => {
-        const routeType = Route.getType();
-        if (routeType === ApiType.train) {
-          return new Route(
-            new Controller(this.locationService, this.trainApiFactory),
-            this.serverConfig.query
-          );
-        } else if (routeType === ApiType.plane) {
-          return new Route(
-            new Controller(this.locationService, this.planeApiFactory),
-            this.serverConfig.query
-          );
-        }
-        throw new GoyavError(
-          'InternalError',
-          `Couldn't properly init ${Route.toString()}, expected to have type ${ApiType.plane} or ${ApiType.train} but got ${routeType}`)
+        return new Route(
+          new Controller(this.locationService, this.apiFactory),
+          this.serverConfig.query
+        );
       });
     }
 

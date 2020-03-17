@@ -1,5 +1,5 @@
-import {City} from '../entities/specific/City';
-import {Journey} from '../entities/specific/Journey';
+import { City } from '../entities/specific/City';
+import { IJourney } from '../entities/specific/Journey';
 
 export enum ApiType {
   default = 'default',
@@ -7,21 +7,24 @@ export enum ApiType {
   plane = 'plane'
 }
 
-export interface WhereFromTo {
-    from: City,
-    to: City
+export enum ApiProvider {
+  sncf = 'sncf',
+  kiwi = 'kiwi'
 }
 
-export interface GeoData {
-    [city: string]: string | City
+export interface ApiResult {
+  // requestId: string,
+  type: ApiType,
+  provider: ApiProvider,
+  co2: number,
+  // traveledDistance: number,
+  cityFrom: City,
+  cityTo: City,
+  journeys: IJourney[]
 }
 
 export interface TravelApi {
 
-    getAvailables(cityWhere: City, cityTo: City, when: Date, maxResults?: number): Promise<Journey[]>;
-
-    requestUrl(baseUrl: string, cityWhere: City, cityTo: City, when: Date): string;
-
-    parseDate(date: Date): string;
+    getAvailables(cityWhere: City, cityTo: City, when: Date, maxResults?: number): Promise<IJourney[]>;
 
 }

@@ -20,14 +20,12 @@ const locationService = new LocationService(
 );
 
 // Remote APIs
-const trainApiFactory = new ApiFactory(ApiType.train);
-const planeApiFactory = new ApiFactory(ApiType.plane);
+const apiFactory = new ApiFactory();
 
 // Routes
 const routes = new RoutesFactory(
     locationService,
-    trainApiFactory,
-    planeApiFactory,
+    apiFactory,
     config
   );
 

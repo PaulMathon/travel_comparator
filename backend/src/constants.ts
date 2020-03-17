@@ -22,6 +22,7 @@ export const httpStatus: { [key: string]: number } = {
   'Unauthorized': 401,
   'Forbidden':403,
   'NotFound': 404,
+  'ApiError': 404,
   'NotAcceptable': 406,
   'TooManyRequest': 429,
   'InternalError': 500,
