@@ -1,0 +1,382 @@
+{
+  "Pyrénées-Orientales": {
+    "name": "Porté-Puymorens",
+    "uic": 87611509
+  },
+  "Lozère": {
+    "name": "Chirac",
+    "uic": 87783290
+  },
+  "Aveyron": {
+    "name": "Viviez - Decazeville",
+    "uic": 87613661
+  },
+  "Hérault": {
+    "name": "Villeneuve-lès-Maguelone",
+    "uic": 87773515
+  },
+  "Gard": {
+    "name": "Uchaud",
+    "uic": 87775106
+  },
+  "undefined": {
+    "name": "Gare routière d'Oloron-Saint-Marie - Impôts",
+    "uic": 87465146
+  },
+  "Vaucluse": {
+    "name": "Avignon TGV terminal TER",
+    "uic": 87981902
+  },
+  "Ardèche": {
+    "name": "Saint-Péray",
+    "uic": 87761494
+  },
+  "Hautes-Alpes": {
+    "name": "Mont-Dauphin - Guillestre",
+    "uic": 87763508
+  },
+  "Drôme": {
+    "name": "Donzère",
+    "uic": 87764290
+  },
+  "Rhône": {
+    "name": "Lyon Gorge de Loup",
+    "uic": 87721175
+  },
+  "Isère": {
+    "name": "Saint-Clair - Les Roches",
+    "uic": 87722652
+  },
+  "Alpes-Maritimes": {
+    "name": "L'Ariane La Trinité",
+    "uic": 87751529
+  },
+  "Var": {
+    "name": "La Seyne - Six Fours",
+    "uic": 87755264
+  },
+  "Bouches-du-Rhône": {
+    "name": "La Barasse",
+    "uic": 87635581
+  },
+  "Haute-Savoie": {
+    "name": "Chamonix Aiguille du Midi",
+    "uic": 87462085
+  },
+  "Ain": {
+    "name": "Brion - Montréal-la-Cluse",
+    "uic": 87131961
+  },
+  "Savoie": {
+    "name": "Vions - Chanaz",
+    "uic": 87741108
+  },
+  "Puy-de-Dôme": {
+    "name": "Volvic",
+    "uic": 87641423
+  },
+  "Haute-Loire": {
+    "name": "Brioude",
+    "uic": 87734269
+  },
+  "Allier": {
+    "name": "Montluçon",
+    "uic": 87641001
+  },
+  "Loire": {
+    "name": "Saint-Étienne Le Clapier",
+    "uic": 87726174
+  },
+  "Saône-et-Loire": {
+    "name": "Cordesse - Igornay",
+    "uic": 87694547
+  },
+  "Doubs": {
+    "name": "Frasne",
+    "uic": 87715136
+  },
+  "Jura": {
+    "name": "Lons-le-Saunier",
+    "uic": 87718239
+  },
+  "Côte-d'Or": {
+    "name": "Sincey-lès-Rouvray",
+    "uic": 87694430
+  },
+  "Nièvre": {
+    "name": "Pouilly-sur-Loire",
+    "uic": 87696179
+  },
+  "Paris": {
+    "name": "Paris Bercy Bourgogne - Pays d'Auvergne",
+    "uic": 87686667
+  },
+  "Seine-et-Marne": {
+    "name": "Marne-la-Vallée Chessy",
+    "uic": 87111849
+  },
+  "Yonne": {
+    "name": "Villeneuve-la-Guyard",
+    "uic": 87683102
+  },
+  "Val-de-Marne": {
+    "name": "Villiers-sur-Marne - Le Plessis-Trévise",
+    "uic": 87113795
+  },
+  "Essonne": {
+    "name": "Angerville",
+    "uic": 87543090
+  },
+  "Pyrénées-Atlantiques": {
+    "name": "Pau",
+    "uic": 87672006
+  },
+  "Landes": {
+    "name": "Labouheyre",
+    "uic": 87582551
+  },
+  "Cantal": {
+    "name": "Pers",
+    "uic": 87645176
+  },
+  "Tarn": {
+    "name": "Saint-Sulpice",
+    "uic": 87615344
+  },
+  "Haute-Garonne": {
+    "name": "Le Toec",
+    "uic": 87353573
+  },
+  "Aude": {
+    "name": "Castelnaudary",
+    "uic": 87615039
+  },
+  "Lot": {
+    "name": "Saint-Denis-lès-Martel",
+    "uic": 87594572
+  },
+  "Tarn-et-Garonne": {
+    "name": "Albias",
+    "uic": 87613398
+  },
+  "Ariège": {
+    "name": "Tarascon-sur-Ariège",
+    "uic": 87611590
+  },
+  "Creuse": {
+    "name": "Busseau sur Creuse",
+    "uic": 87597708
+  },
+  "Indre": {
+    "name": "Valençay",
+    "uic": 87576215
+  },
+  "Dordogne": {
+    "name": "Lamothe-Montravel",
+    "uic": 87584151
+  },
+  "Corrèze": {
+    "name": "Lacelle",
+    "uic": 87592147
+  },
+  "Haute-Vienne": {
+    "name": "Saint-Denis-des-Murs",
+    "uic": 87592097
+  },
+  "Lot-et-Garonne": {
+    "name": "Pont-du-Casse",
+    "uic": 87586404
+  },
+  "Gironde": {
+    "name": "Mérignac Arlac",
+    "uic": 87278259
+  },
+  "Charente": {
+    "name": "Cognac",
+    "uic": 87491449
+  },
+  "Cher": {
+    "name": "Vierzon",
+    "uic": 87576009
+  },
+  "Loir-et-Cher": {
+    "name": "Thésée",
+    "uic": 87328195
+  },
+  "Vienne": {
+    "name": "Poitiers",
+    "uic": 87575001
+  },
+  "Indre-et-Loire": {
+    "name": "La Douzillère",
+    "uic": 87009696
+  },
+  "Hauts-de-Seine": {
+    "name": "Colombes",
+    "uic": 87381087
+  },
+  "Eure-et-Loir": {
+    "name": "Saint-Aubin - Saint-Luperce",
+    "uic": 87394213
+  },
+  "Loiret": {
+    "name": "Boisseaux",
+    "uic": 87543082
+  },
+  "Charente-Maritime": {
+    "name": "Rochefort",
+    "uic": 87485144
+  },
+  "Vendée": {
+    "name": "La Chaize-le-Vicomte",
+    "uic": 87486308
+  },
+  "Deux-Sèvres": {
+    "name": "Beauvoir-sur-Niort",
+    "uic": 87485342
+  },
+  "Loire-Atlantique": {
+    "name": "Châteaubriant Tram Train",
+    "uic": 87590372
+  },
+  "Maine-et-Loire": {
+    "name": "Tiercé",
+    "uic": 87484147
+  },
+  "Mayenne": {
+    "name": "Neau",
+    "uic": 87478545
+  },
+  "Ille-et-Vilaine": {
+    "name": "Bruz",
+    "uic": 87471037
+  },
+  "Morbihan": {
+    "name": "Lorient Bretagne Sud",
+    "uic": 87476002
+  },
+  "Finistère": {
+    "name": "La Roche-Maurice",
+    "uic": 87474262
+  },
+  "Côtes-d'Armor": {
+    "name": "Traou Nez",
+    "uic": 87322347
+  },
+  "Haut-Rhin": {
+    "name": "Graffenwald",
+    "uic": 87181131
+  },
+  "Calvados": {
+    "name": "Dives-sur-Mer Port Guillaume",
+    "uic": 87337378
+  },
+  "Manche": {
+    "name": "Cherbourg",
+    "uic": 87444877
+  },
+  "Orne": {
+    "name": "Surdon",
+    "uic": 87444562
+  },
+  "Marne": {
+    "name": "Montbré",
+    "uic": 87171256
+  },
+  "Yvelines": {
+    "name": "Triel-sur-Seine",
+    "uic": 87381806
+  },
+  "Seine-Maritime": {
+    "name": "Eu",
+    "uic": 87317537
+  },
+  "Sarthe": {
+    "name": "Conlie",
+    "uic": 87396218
+  },
+  "Val-d'Oise": {
+    "name": "Cernay",
+    "uic": 87276063
+  },
+  "Nord": {
+    "name": "Lille CHR",
+    "uic": 87109306
+  },
+  "Pas-de-Calais": {
+    "name": "Pont d'Ardres",
+    "uic": 87281410
+  },
+  "Bas-Rhin": {
+    "name": "Vendenheim",
+    "uic": 87212118
+  },
+  "Somme": {
+    "name": "La Faloise",
+    "uic": 87313239
+  },
+  "Oise": {
+    "name": "Mareuil-sur-Ourcq",
+    "uic": 87116665
+  },
+  "Aisne": {
+    "name": "Bazoches",
+    "uic": 87171348
+  },
+  "Seine-Saint-Denis": {
+    "name": "Villetaneuse Université",
+    "uic": 87697318
+  },
+  "Moselle": {
+    "name": "Distroff",
+    "uic": 87191320
+  },
+  "Meurthe-et-Moselle": {
+    "name": "Fontenoy-sur-Moselle",
+    "uic": 87141051
+  },
+  "Haute-Saône": {
+    "name": "Héricourt",
+    "uic": 87184507
+  },
+  "Territoire de Belfort": {
+    "name": "Belfort",
+    "uic": 87184002
+  },
+  "Meuse": {
+    "name": "Meuse TGV",
+    "uic": 87147322
+  },
+  "Haute-Marne": {
+    "name": "Froncles",
+    "uic": 87142240
+  },
+  "Ardennes": {
+    "name": "Charleville-Mézières",
+    "uic": 87172007
+  },
+  "Vosges": {
+    "name": "Neufchâteau",
+    "uic": 87141291
+  },
+  "Alpes-de-Haute-Provence": {
+    "name": "Château-Arnoux-Saint-Auban",
+    "uic": 87751230
+  },
+  "Hautes-Pyrénées": {
+    "name": "Loures - Barbazan",
+    "uic": 87611178
+  },
+  "Gers": {
+    "name": "L'Isle-Jourdain",
+    "uic": 87611806
+  },
+  "Eure": {
+    "name": "Bueil",
+    "uic": 87387092
+  },
+  "Aube": {
+    "name": "Vendeuvre",
+    "uic": 87118257
+  }
+}
