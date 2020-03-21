@@ -1,0 +1,5 @@
+describe('Apis :', () => {
+
+  require('./sncf');
+
+});

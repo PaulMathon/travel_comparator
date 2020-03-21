@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "NODE_ENV=test mocha -r ts-node/register --recursive tests/**/*.test.ts",
+    "test": "NODE_ENV=test mocha -r ts-node/register tests/index.test.ts",
     "start": "node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "migrate": "node ./data/migration.js",
     "start:watch": "nodemon"
   },
   "keywords": [],
