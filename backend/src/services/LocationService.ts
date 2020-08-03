@@ -1,6 +1,4 @@
-import { IAirportProvider } from '../providers/AirportProvider';
-import { ICityProvider } from '../providers/CityProvider';
-import { IGoyavError } from '../utils/GoyavError';
+import { ILocationProvider } from '../providers/LocationProvider';
 import { City } from '../entities/specific/City';
 
 export interface ILocationService {
@@ -11,12 +9,10 @@ export interface ILocationService {
 
 export class LocationService implements ILocationService {
 
-  constructor(
-    private airportProvider: IAirportProvider,
-    private cityProvider: ICityProvider) {}
-    
+  constructor(private cityProvider: ILocationProvider) {}
+
   async getCity(cityId: string): Promise<City> {
-    const city = await this.cityProvider.getCity(cityId);
+    const city = await this.cityProvider.getApiLocations(cityId);
     return city;
   }
 

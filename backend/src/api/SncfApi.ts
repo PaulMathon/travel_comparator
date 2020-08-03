@@ -1,10 +1,12 @@
 import fetch from 'node-fetch';
 import { URL_SNCF, TOKEN_SNCF } from '../constants';
 import { City } from '../entities/specific/City';
-import { IJourney } from '../entities/specific/Journey';
+import { IJourney, EntityType } from '../entities/specific/Journey';
 import { ApiType, ApiProvider, TravelApi, ApiResult } from './TravelApi';
 import { HttpUtils } from '../utils/HttpUtils';
 import { GoyavError } from '../utils/GoyavError';
+import {v4 as uuid} from 'uuid';
+import { isArray } from 'util';
 
 /**
  * Documentation: http://doc.navitia.io/
@@ -20,9 +22,9 @@ export class SncfApi implements TravelApi {
     };
     const urlRequest = this.requestUrl(URL_SNCF, cityFrom, cityTo, when);
     console.log('urlReq', urlRequest);
-    const availables = await HttpUtils.fetch(urlRequest, opt);
-    console.log(availables);
-    const journeys = this.parseJourneys(availables.journeys);
+    const rawJourneys = await HttpUtils.fetch(urlRequest, opt);
+    console.log(rawJourneys);
+    const journeys = rawJourneys.journeys.map((rawJourney: any) => this.parseJourneys(rawJourney));
     return journeys;
   }
 
@@ -35,8 +37,8 @@ export class SncfApi implements TravelApi {
   }
 
   private requestUrl(baseUrl: string, cityFrom: City, cityTo: City, when: Date): string {
-    //return `${baseUrl}/coverage/sncf/journeys?from=admin:fr:${cityFrom.zipCode}&to=admin:fr:${cityTo.zipCode}&datetime=${this.parseDate(when)}`
-    return `${baseUrl}/coverage/sncf/journeys?from=admin:fr:75056&to=stop_area:OCE:SA:87393256&datetime=${this.parseDate(when)}`
+    return `${baseUrl}/coverage/sncf/journeys?from=admin:fr:${cityFrom.uic}&to=admin:fr:${cityTo.uic}&datetime=${this.parseDate(when)}`
+    // return `${baseUrl}/coverage/sncf/journeys?from=stop_area:OCE:SA:87271494&to=stop_area:OCE:SA:87722744&datetime=${this.parseDate(when)}`
   }
 
   /**
@@ -48,28 +50,155 @@ export class SncfApi implements TravelApi {
     return `${date}T${time}`;
   }
 
-  private parseJourneys(originalJourneys: any): IJourney[] {
-    return originalJourneys.map(
-      ({sections}: {sections: any}) => ({
-        cityFrom: sections.from.administrative_region,
-        cityTo: sections.to.administrative_region,
-        startTimestamp: this.getTimestamp(sections.from.arrival_date_time),
-        endTimestamp: this.getTimestamp(sections.to.arrival_date_time),
-        co2: sections.co2_emission.value
-      })
-    );
+  private parseJourneys(rawJourney: any): IJourney {
+
+    return {
+      type: EntityType.journey,
+      id: uuid(),
+      legs: rawJourney.sections.map((section: any) => ({
+        origin: {
+          type: EntityType.station,
+          id: this.findUic(section.from.stop_area.codes),
+          name: section.from.stop_area.name,
+          location: {
+            type: "location",
+            longitude: section.from.stop_area.coord.lon,
+            latitude: section.from.stop_area.coord.lat
+          }
+        },
+        destination: {
+          type: EntityType.station,
+          id: this.findUic(section.to.stop_area.codes),
+          name: section.to.stop_area.name,
+          location: {
+            type: "location",
+            longitude: section.to.stop_area.coord.lon,
+            latitude: section.to.stop_area.coord.lat
+          }
+        },
+        departure: "2017-03-16T20:00:00+01:00",
+        departurePlatform: "4-1",
+        departureDelay: null,
+        arrival: "2017-03-17T15:00:00+02:00",
+        arrivalPlatform: "9",
+        arrivalDelay: 0,
+        schedule: {
+          type: "schedule",
+          id: "1234",
+          route: {
+            type: "route",
+            id: "123",
+            line: {
+              type: "line",
+              id: "12",
+              name: "Magic Intercontinental Express",
+              mode: "train",
+              operator: {
+                type: "operator",
+                id: "1",
+                name: "1 Railways Inc."
+              }
+            },
+            stops: [
+              "10001",
+              {
+                type: "stop",
+                id: "10002-a",
+                station: {
+                  type: "station",
+                  id: "10002",
+                  name: "Bar City Center"
+                },
+                name: "train station"
+              },
+              "10003"
+            ]
+          },
+          mode: "train",
+          sequence: [
+            {
+              departure: 0
+            },
+            {
+              arrival: 3600,
+              departure: 3720
+            },
+            {
+              arrival: 64800
+            }
+          ],
+          starts: [
+            1489604400,
+            1489690800,
+            1489777200
+          ]
+        },
+        stopovers: [{
+          type: "stopover",
+          stop: "10001",
+          arrival: null,
+          arrivalPlatform: null,
+          departure: "2017-03-16T20:00:00+01:00",
+          departurePlatform: "4-1",
+          departureDelay: null
+        }, {
+          type: "stopover",
+          top: "10002-a",
+          arrival: "2017-03-16T21:01:30+01:00",
+          arrivalPlatform: "C",
+          arrivalDelay: 90,
+          departure: "2017-03-16T21:03:00+01:00",
+          departurePlatform: "C",
+          departureDelay: 60
+        }, {
+          type: "stopover",
+          stop: "10003",
+          arrival: "2017-03-17T15:00:00+02:00",
+          arrivalPlatform: "9",
+          arrivalDelay: 0,
+          departure: null,
+          departurePlatform: null
+        }],
+        public: true,
+        operator: {
+          type: "operator",
+          id: "2",
+          name: "2 Replacement Railway Services Inc."
+        },
+        price: {
+          amount: 19.95,
+          currency: "EUR"
+        }
+      }),
+      price: {
+        amount: 19.95,
+        currency: "EUR"
+      }
+    }
   }
 
-  private getTimestamp(sncfDate: string): number {
-    const [, year, month, day, hours, min, sec] = this.sncfDateFormat.exec(sncfDate) || [];
-    if (!year || !month || !day || !hours || !min || !sec) {
-      throw new GoyavError(
-        'ApiError',
-        `Wrong date format received from SNCF API: ${sncfDate}`
-      );
+  private findUic(codes: { type: string, value: string }[]): number {
+    let uic;
+    if (isArray(codes)) {
+      const uicCode = codes.filter((code: any) => code.UIC8);
+      if (uicCode.length === 1) {
+        uic = uicCode[0].value;
+      }
+      throw new GoyavError('', '');
+    } else {
+      throw new GoyavError('', '');
     }
-    const strDate = `${year}-${month}-${day}T${hours}:${min}:${sec}`;
-    const jsDate = new Date(strDate);
-    return Date.parse(jsDate.toISOString())
+    return parseInt(uic);
+  }
+
+  private deserializeSncfDate(sncfDate: string): Date {
+    const matches = this.sncfDateFormat.exec(sncfDate);
+    if (matches.lenght < 7) {
+      thow new GoyavError('', '');
+    }
+    const [, year, month, day, hours, minutes, seconds] =
+    // 2020-03-22T22:07:28.828Z
+    const dateAsStr = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000`;
+    return new Date(dateAsStr);
   }
 }

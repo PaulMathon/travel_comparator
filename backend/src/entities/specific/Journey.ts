@@ -1,7 +1,7 @@
 import { City } from './City';
 import { ApiType, ApiProvider } from '../../api/TravelApi';
 
-enum EntityType {
+export enum EntityType {
   journey = 'journey',
   station = 'station',
   location = 'location'
@@ -12,7 +12,7 @@ enum EntityType {
  */
 export interface IJourney {
 	type: EntityType.journey,
-	id: "12345",
+	id: string,
 	legs: [{
 		origin: {
 			type: EntityType.station,

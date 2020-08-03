@@ -15,7 +15,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^2.6.0",
+    "uuid": "^7.0.2"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
@@ -27,6 +28,7 @@
     "@types/node": "^13.9.0",
     "@types/node-fetch": "^2.5.4",
     "@types/util.promisify": "^1.0.3",
+    "@types/uuid": "^7.0.2",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "eslint-plugin-import": "^2.20.1",

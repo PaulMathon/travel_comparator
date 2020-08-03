@@ -3,6 +3,7 @@ import {IAAT} from './IAAT';
 interface ICityOptionalParams {
   inseeName?: number;
   gpsCoordinates?: Array<number>;
+  uic?: number;
   iaat?: IAAT;
 }
 
@@ -12,6 +13,7 @@ interface ICity {
     zipCode: number;
     inseeName?: number;
     gpsCoordinates?: Array<number>;
+    uic?: number;
     iaat?: IAAT;
 }
 
@@ -21,6 +23,7 @@ export class City implements ICity {
   zipCode: number;
   inseeName?: number | undefined;
   gpsCoordinates?: number[] | undefined;
+  uic?: number | undefined;
   iaat?: IAAT | undefined;
 
   constructor(name: string, zipCode: number, optionalParams?: ICityOptionalParams) {
@@ -28,6 +31,7 @@ export class City implements ICity {
     this.zipCode = zipCode;
     this.inseeName = optionalParams?.inseeName;
     this.gpsCoordinates = optionalParams?.gpsCoordinates;
+    this.uic = optionalParams?.uic;
     this.iaat = optionalParams?.iaat;
   }
 }

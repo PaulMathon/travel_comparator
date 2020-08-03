@@ -1,8 +1,7 @@
 import { App } from './App';
 import { RoutesFactory } from './workers/RoutesFactory';
 import { LocationService } from './services/LocationService';
-import { AirportProvider } from './providers/AirportProvider';
-import { CityProvider } from './providers/CityProvider';
+import { LocationProvider } from './providers/LocationProvider';
 import { ApiFactory } from './api/ApiFactory';
 import { ApiType } from './api/TravelApi';
 import { Logger } from './utils/Logger';
@@ -12,12 +11,8 @@ import { Config } from './config';
 const config = new Config().getServerConfig();
 
 // Providers and services
-const airportProvider = new AirportProvider();
-const cityProvider = new CityProvider();
-const locationService = new LocationService(
-  airportProvider,
-  cityProvider
-);
+const locationProvider = new LocationProvider();
+const locationService = new LocationService(locationProvider);
 
 // Remote APIs
 const apiFactory = new ApiFactory();
